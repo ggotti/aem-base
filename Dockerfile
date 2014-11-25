@@ -8,6 +8,7 @@ RUN yum install -y --enablerepo=centosplus libselinux-devel
 RUN yum install -y --enablerepo=centosplus httpd
 RUN yum install -y wget
 RUN yum install -y --enablerepo=centosplus epel-release
+RUN yum install -y zip
 
 #Enables Centos EPL repository, and then installs python modules.
 RUN yum -y install ipython
