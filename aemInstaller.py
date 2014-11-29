@@ -15,19 +15,22 @@ parser.add_option("-r", "--runmode",
 parser.add_option("-p", "--port", dest="port",
                   help="Port for instance")
 
-(options, args) = parser.parse_args()
+options, args = parser.parse_args()
+optDic = vars(options)
 
 # Copy out parameters
-fileName = options.setdefault('fileName','cq-publish-4503.jar')
-runmode = options.setdefault('runmode','publish')
-port = options.setdefault('port','4503')
+print optDic
+print optDic['filename']
+fileName = optDic.setdefault('filename','cq-publish-4503.jar')
+runmode = optDic.setdefault('runmode','publish')
+port = optDic.setdefault('port','4503')
 
 #
 # Waits for connection on 5007, and then checks that the returned
 # success message has been recieved.
 #
 # Starts AEM installer
-installProcess = subprocess.Popen(['java', '-jar', fileName, '-listener-port','50007','-r',runmode,'-p',port])
+installProcess = subprocess.Popen(['java', '-jar', fileName, '-listener-port','50007','-r',runmode,,'-r','nosample','-p',port])
 
 # Starting listener
 import socket
@@ -51,6 +54,17 @@ while 1:
     # conn.sendall(data)
 conn.close()
 
+#Post install hook
+postInstallHook = "postInstallHook.py"
+if os.path.isfile(postInstallHook):
+    print "Executing post install hook"
+    returncode = subprocess.call(["python", postInstallHook])
+    print returncode
+else:
+    print "No install hook found"
+
+
+print "Stopping instance"
 #
 # If the success message was recieved, attempt to close all associated
 # processes.

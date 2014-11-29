@@ -13,6 +13,7 @@ RUN yum install -y zip
 #Enables Centos EPL repository, and then installs python modules.
 RUN yum -y install ipython
 RUN yum install -y python-psutil
+RUN yum install -y python-pycurl
 
 # Install utility for AEM
 ADD aemInstaller.py /aem/aemInstaller.py
