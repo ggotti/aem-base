@@ -30,12 +30,12 @@ port = optDic.setdefault('port','4503')
 # success message has been recieved.
 #
 # Starts AEM installer
-installProcess = subprocess.Popen(['java', '-jar', fileName, '-listener-port','50007','-r',runmode,,'-r','nosample','-p',port])
+installProcess = subprocess.Popen(['java', '-jar', fileName, '-listener-port','50007','-r',runmode,'nosample','-p',port])
 
 # Starting listener
 import socket
-HOST = ''                 # Symbolic name meaning all available interfaces
-PORT = 50007              # Arbitrary non-privileged port
+HOST = ''
+PORT = 50007
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
 s.listen(1)
